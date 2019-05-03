@@ -180,19 +180,34 @@ void deleteNum(digit * num){
 // TODO: Implement function to add 2 numbers stored in 2 linked lists
 digit * addNumbers(digit * left, digit * right){ // this function makes numbers in order.
 
+  digit * sum;
+  int carry = 0;
 
-/*  digit * cursor;
-  cursor = left->next;
-  digit * sum;*/
+  while(left->next != nullptr && right->next != nullptr)
+  {
+    dig = new digit;
+    dig->next = sum->next;
+    dig->data = left->data + right->data + carry;
 
-  cout << "Currently pointing to: " << left->next << endl;
-/*
-  // traverse to the right-most digit in each numbers
+    if(dig->data > 9)
+    {
+      carry = 1;
+    }
+    else
+      carry = 0;
+
+    // traverse to next digits to be added
+    left = left->next;
+    right = right->next;
+  }
+
   while(left->next != nullptr)
   {
+    dig = new digit;
 
-  }*/
-    return left;
+  }
+
+  return  sum;
 }
 
 //-----------------PROVIDED BY INSTRUCTOR-----------------
