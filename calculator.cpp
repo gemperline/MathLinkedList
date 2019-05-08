@@ -45,7 +45,7 @@ int main() {
 
         if (op == '+'){
             result = addNumbers(left, right);
-        } else {
+      }/* else {
             test = digcmp(left, right);
             if (test > 0) {
                 result = subNumbers(left, right); // result will be positive
@@ -57,7 +57,7 @@ int main() {
             } else {
                 result = new digit; // result of subtraction was zero
             }
-        }
+        }*/
         writeNum(result, outFile);
         deleteNum(left);
         deleteNum(right);
@@ -178,20 +178,24 @@ void deleteNum(digit * num){
 }
 
 // TODO: Implement function to add 2 numbers stored in 2 linked lists
-digit * addNumbers(digit * left, digit * right){ // this function makes numbers in order.
+digit * addNumbers(digit * left, digit * right){
+  // this function makes numbers in order.
 
-  digit * sum;
+  digit * dig = nullptr;
+  digit * head = nullptr;
   int carry = 0;
 
-  while(left->next != nullptr && right->next != nullptr)
+  while(left != nullptr && right != nullptr)
   {
     dig = new digit;
-    dig->next = sum->next;
-    dig->data = left->data + right->data + carry;
+    dig->data = (carry + left->data) + right->data;
+    dig->next = head;
+    head = dig;
 
     if(dig->data > 9)
     {
       carry = 1;
+      dig->data = dig->data % 10;
     }
     else
       carry = 0;
@@ -201,13 +205,53 @@ digit * addNumbers(digit * left, digit * right){ // this function makes numbers 
     right = right->next;
   }
 
-  while(left->next != nullptr)
+  while(left != nullptr)
   {
     dig = new digit;
+    dig->data = carry + left->data;
+    dig->next = head;
+    head = dig;
 
+    if(dig->data > 9)
+    {
+      carry = 1;
+      dig->data = dig->data % 10;
+    }
+    else
+      carry = 0;
+
+    // traverse to next digits to be added
+    left = left->next;
   }
 
-  return  sum;
+  while(right != nullptr)
+  {
+    dig = new digit;
+    dig->data = carry + right->data;
+    dig->next = head;
+    head = dig;
+
+    if(dig->data > 9)
+    {
+      carry = 1;
+      dig->data = dig->data % 10;
+    }
+    else
+      carry = 0;
+
+    // traverse to next digits to be added
+    right = right->next;
+  }
+
+  if(carry == 1)
+  {
+    dig = new digit;
+    dig->data = carry;
+    cout << dig->data << endl;
+    dig->next = head;
+    head = dig;
+  }
+  return head;
 }
 
 //-----------------PROVIDED BY INSTRUCTOR-----------------
@@ -223,7 +267,7 @@ void subtractCarry(digit * head, digit * prev){
     }
 }
 
-// TODO: Implement function to subtract 2 numbers stored in 2 linked lists. Use provided helper functions
+// (OPTIONAL) TODO: Implement function to subtract 2 numbers stored in 2 linked lists. Use provided helper functions
 digit * subNumbers(digit * left, digit * right){
     return nullptr;
 }
