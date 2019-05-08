@@ -1,3 +1,8 @@
+// Adam Gemperline
+// Section 03
+
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
